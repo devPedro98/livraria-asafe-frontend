@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const api = axios.create({
     baseURL: 'http://localhost:8080',
@@ -17,6 +18,20 @@ api.interceptors.request.use(config => {
 
     return config
 }, error => {
+    return Promise.reject(error)
+})
+
+// Interceptando todas as respostas HTTP
+api.interceptors.response.use(response => {
+    return response
+}, error => {
+    if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+        localStorage.removeItem('token')
+        toast.error('Sua sessão expirou. Por favor, faça login novamente.')
+        setTimeout(() => {
+            window.location.href = '/login'
+        }, 3000) // Espera 3 segundos antes de redirecionar
+    }
     return Promise.reject(error)
 })
 
