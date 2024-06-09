@@ -8,9 +8,14 @@ const Login = () => {
 
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(null)
+
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        setLoading(true)
+        setError(null)
         try {
             const response = await axios.post('http://localhost:8080/auth/login', {
                 login,
@@ -18,7 +23,10 @@ const Login = () => {
             })
             console.log(response.data.token)
         } catch (error) {
+            setError('O login falhou, por favor tente novamente.')
             console.error('Login failed:', error)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -45,7 +53,8 @@ const Login = () => {
                         required
                     />
                 </div>
-                <Button type="submit" text="Login" />
+                {error && <p className={styles.error}>{error}</p>}
+                <Button type="submit" text={loading ? "Carregando..." : "Login"} />
             </form>
         </div>
     )
