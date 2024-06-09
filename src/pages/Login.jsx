@@ -1,8 +1,9 @@
 import { useState } from "react"
 import axios from 'axios'
-import styles from './Login.module.css'
+import { Navigate } from 'react-router-dom';
 import Input from "../components/input/Input"
 import Button from "../components/button/Button"
+import styles from './Login.module.css'
 
 const Login = () => {
 
@@ -10,6 +11,7 @@ const Login = () => {
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
+    const [loggedIn, setLoggedIn] = useState(false)
 
 
     const handleSubmit = async (e) => {
@@ -22,12 +24,18 @@ const Login = () => {
                 password
             })
             console.log(response.data.token)
+            localStorage.setItem('token', response.data.token)
+            setLoggedIn(true)
         } catch (error) {
             setError('O login falhou, por favor tente novamente.')
             console.error('Login failed:', error)
         } finally {
             setLoading(false)
         }
+    }
+
+    if (loggedIn) {
+        return <Navigate to="/home" />
     }
 
     return (
