@@ -1,11 +1,17 @@
 .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     background-color: #333;
     color: #fff;
     padding: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    z-index: 1000;
 }
+
 
 .logo {
     font-size: 24px;
@@ -13,7 +19,7 @@
 
 .nav {
     flex-grow: 1;
-    text-align: right;
+    text-align: center;
 }
 
 .nav_menu {
@@ -24,7 +30,8 @@
 
 .nav_menu li {
     display: inline;
-    margin-left: 20px;
+    /* margin-left: 20px; */
+    margin-right: 20px;
 }
 
 .nav_menu li:first-child {
@@ -35,26 +42,4 @@
     color: #fff;
     text-decoration: none;
     font-size: 18px;
-}
-
-/* Estilos para tornar o menu responsivo */
-@media screen and (max-width: 768px) {
-    .nav_menu {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        background-color: #333;
-        width: 100%;
-        text-align: center;
-    }
-
-    .nav_menu.active {
-        display: block;
-    }
-
-    .nav_menu li {
-        display: block;
-        margin: 10px 0;
-    }
 }
