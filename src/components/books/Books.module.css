@@ -1,0 +1,42 @@
+.books_page {
+    padding: 20px;
+    background-color: #f9f9f9;
+    color: #333;
+    border-radius: 3px;
+}
+
+.books_page h1 {
+    font-size: 2em;
+    color: #1a73e8;
+    margin-bottom: 20px;
+}
+
+.books_table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.books_table th,
+.books_table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.books_table th {
+    background-color: #1a73e8;
+    color: white;
+}
+
+.books_table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.books_table tr:hover {
+    background-color: #ddd;
+}
+
+.error {
+    color: red;
+}

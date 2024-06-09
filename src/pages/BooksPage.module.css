@@ -1,0 +1,19 @@
+.books_page {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    /* background-color: #f9f9f9; */
+    color: #333;
+}
+
+.books_page h1 {
+    font-size: 2.5em;
+    color: #1a73e8;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.books_page p {
+    font-size: 1.4em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
