@@ -41,41 +41,24 @@
     color: red;
 }
 
-/* Define uma classe para o parágrafo de loading */
 .loading {
     display: flex;
-    /* Usa flexbox para alinhamento */
     justify-content: center;
-    /* Centraliza horizontalmente */
     align-items: center;
-    /* Centraliza verticalmente */
     width: 400px;
-    /* Define uma largura fixa */
     height: 200px;
-    /* Define uma altura fixa */
     margin: 50px auto;
-    /* Centraliza o parágrafo na tela */
     font-size: 1.5em;
-    /* Aumenta o tamanho da fonte */
     color: #ffffff;
-    /* Define a cor do texto como branco */
     background-color: #007BFF;
-    /* Define uma cor de fundo bonita */
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-    /* Adiciona uma leve sombra ao texto */
     border-radius: 10px;
-    /* Adiciona bordas arredondadas */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    /* Adiciona uma sombra ao redor */
     animation: pulse 1.5s infinite;
-    /* Adiciona uma animação de pulso */
     text-align: center;
-    /* Centraliza o texto */
     padding: 20px;
-    /* Adiciona um pouco de padding */
 }
 
-/* Define a animação de pulso */
 @keyframes pulse {
     0% {
         opacity: 0.8;
