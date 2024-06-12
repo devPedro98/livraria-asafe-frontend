@@ -20,11 +20,17 @@ const Books = () => {
                 setLoading(false)
             }
         }
-        fetchBooks()
+
+        const timeoutId = setTimeout(() => {
+            fetchBooks()
+        }, 800)
+
+        return () => clearTimeout(timeoutId)
     }, [])
 
+
     if (loading) {
-        return <p>Carregando...</p>
+        return <p className={styles.loading}>Carregando...</p>
     }
 
     if (error) {
