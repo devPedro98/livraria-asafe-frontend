@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
 import api from '../../services/api'
-import { MdEdit } from "react-icons/md";
-import { BsFillTrash3Fill } from "react-icons/bs";
+import { MdEdit } from "react-icons/md"
+import { BsFillTrash3Fill } from "react-icons/bs"
 import styles from './Books.module.css'
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
+import { Flip, toast } from 'react-toastify'
 
 const Books = () => {
     const [books, setBooks] = useState([])
@@ -52,6 +53,25 @@ const Books = () => {
         return new Date(dateString).toLocaleString('pt-BR', options);
     }
 
+    const handleDelete = async (id) => {
+        const confirmed = window.confirm("Tem certeza de que deseja deletar este livro?")
+        if (confirmed) {
+            try {
+                await api.delete(`/api/books/${id}`)
+                setBooks(books.filter(book => book.id !== id))
+                toast.success("Livro deletado com sucesso.", {
+                    position: "bottom-center",
+                    autoClose: 2000,
+                    transition: Flip,
+                })
+            } catch (error) {
+                console.log("Error deleting book:", error)
+                setError("Falha ao deletar o livro. Tente novamente mais tarde.")
+            }
+        }
+
+    }
+
     return (
         <div className={styles.books_page}>
             <p>Livros cadastrados</p>
@@ -76,7 +96,7 @@ const Books = () => {
                             <td>{formatDateTime(book.registrationDate)}</td>
                             <td>
                                 <MdEdit className={styles.icon} />
-                                <BsFillTrash3Fill className={styles.icon} />
+                                <BsFillTrash3Fill className={styles.icon} onClick={() => handleDelete(book.id)} />
                             </td>
                         </tr>
                     ))}
