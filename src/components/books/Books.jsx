@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react"
 import api from '../../services/api'
+import { MdEdit } from "react-icons/md";
+import { BsFillTrash3Fill } from "react-icons/bs";
 import styles from './Books.module.css'
+import { Link } from "react-router-dom";
 
 const Books = () => {
     const [books, setBooks] = useState([])
@@ -60,6 +63,7 @@ const Books = () => {
                         <th>Descrição</th>
                         <th>Autor</th>
                         <th>Data de Registro</th>
+                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -70,6 +74,10 @@ const Books = () => {
                             <td>{book.description}</td>
                             <td>{book.author}</td>
                             <td>{formatDateTime(book.registrationDate)}</td>
+                            <td>
+                                <MdEdit className={styles.icon} />
+                                <BsFillTrash3Fill className={styles.icon} />
+                            </td>
                         </tr>
                     ))}
                 </tbody>
