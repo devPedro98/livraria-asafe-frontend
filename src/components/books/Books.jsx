@@ -95,7 +95,7 @@ const Books = () => {
                             <td>{book.author}</td>
                             <td>{formatDateTime(book.registrationDate)}</td>
                             <td>
-                                <MdEdit className={styles.icon} />
+                                <Link to={`/book/${book.id}`}><MdEdit className={styles.icon} /></Link>
                                 <BsFillTrash3Fill className={styles.icon} onClick={() => handleDelete(book.id)} />
                             </td>
                         </tr>
