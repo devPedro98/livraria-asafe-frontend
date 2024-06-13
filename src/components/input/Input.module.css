@@ -12,3 +12,14 @@ input {
     box-sizing: border-box;
     border-radius: 8px;
 }
+
+textarea {
+    width: calc(100% - 20px);
+    padding: 12px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    border: 1px solid #000000;
+    font-size: 16px;
+    resize: vertical;
+    min-height: 150px;
+}

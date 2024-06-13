@@ -1,18 +1,34 @@
 import styles from './Input.module.css'
 import PropTypes from 'prop-types';
 
-const Input = ({ type, text, name, placeholder, handleChange, value, required }) => {
+const Input = ({ type, text, name, placeholder, handleChange, value, required, disabled }) => {
     return (
         <div className={styles.form_control}>
             <label htmlFor={name}>{text}</label>
-            <input type={type}
-                name={name}
-                id={name}
-                placeholder={placeholder}
-                onChange={handleChange}
-                value={value}
-                required={required}
-            />
+            {type === 'textarea' ? (
+                <textarea
+                    name={name}
+                    id={name}
+                    placeholder={placeholder}
+                    onChange={handleChange}
+                    value={value}
+                    required={required}
+                    disabled={disabled}
+                    rows="5"
+                    cols="50"
+                />
+            ) : (
+                <input
+                    type={type}
+                    name={name}
+                    id={name}
+                    placeholder={placeholder}
+                    onChange={handleChange}
+                    value={value}
+                    required={required}
+                    disabled={disabled}
+                />
+            )}
         </div>
     )
 }
@@ -25,6 +41,7 @@ Input.propTypes = {
     handleChange: PropTypes.func.isRequired,
     value: PropTypes.string.isRequired,
     required: PropTypes.bool,
+    disabled: PropTypes.bool,
 }
 
 
