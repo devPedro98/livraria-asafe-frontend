@@ -12,7 +12,7 @@ const EditBook = () => {
     const { id } = useParams()
     const navigate = useNavigate();
     const [name, setName] = useState('')
-    const [price, setPrice] = useState(0)
+    const [price, setPrice] = useState('')
     const [description, setDescription] = useState('')
     const [author, setAuthor] = useState('')
     const [registrationDate, setRegistrationDate] = useState('')

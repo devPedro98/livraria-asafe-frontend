@@ -1,13 +1,38 @@
+import { useState } from "react"
 import Header from "../../pages/Header"
-import { TextField, Button, Grid, Container, Typography, Box } from '@mui/material';
+import { TextField, Button, Grid, Container, Typography, Box, InputAdornment } from '@mui/material'
+import api from "../../services/api"
+import { Flip, toast } from "react-toastify"
+import { useNavigate } from "react-router-dom"
 
 const NewBook = () => {
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        // Aqui você pode adicionar a lógica para manipular o envio do formulário
-        console.log('Formulário enviado');
-    };
+    const [name, setName] = useState('')
+    const [price, setPrice] = useState('')
+    const [description, setDescription] = useState('')
+    const [author, setAuthor] = useState('')
+
+    const navigate = useNavigate()
+
+    const handleSubmit = async (event) => {
+        event.preventDefault()
+        try {
+            await api.post('/api/books', {
+                name,
+                price,
+                description,
+                author
+            })
+            toast.success("Livro cadastrado com sucesso.", {
+                position: "bottom-center",
+                autoClose: 3000,
+                transition: Flip,
+            })
+            navigate('/books')
+        } catch (error) {
+            console.error('Login failed:', error)
+        }
+    }
 
     return (
         <>
@@ -29,6 +54,7 @@ const NewBook = () => {
                                     label="Nome"
                                     name="name"
                                     fullWidth
+                                    onChange={(e) => setName(e.target.value)}
                                     required
                                 />
                             </Grid>
@@ -38,6 +64,10 @@ const NewBook = () => {
                                     name="price"
                                     type="number"
                                     fullWidth
+                                    onChange={(e) => setPrice(e.target.value)}
+                                    InputProps={{
+                                        startAdornment: <InputAdornment position="start">R$</InputAdornment>,
+                                    }}
                                     required
                                 />
                             </Grid>
@@ -48,6 +78,7 @@ const NewBook = () => {
                                     multiline
                                     rows={1}
                                     fullWidth
+                                    onChange={(e) => setDescription(e.target.value)}
                                     required
                                 />
                             </Grid>
@@ -56,6 +87,7 @@ const NewBook = () => {
                                     label="Autor"
                                     name="author"
                                     fullWidth
+                                    onChange={(e) => setAuthor(e.target.value)}
                                     required
                                 />
                             </Grid>
