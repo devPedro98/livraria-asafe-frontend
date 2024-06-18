@@ -30,6 +30,13 @@ const NewBook = () => {
             })
             navigate('/books')
         } catch (error) {
+            if (error.response && error.response.data && error.response.data.detailsException) {
+                toast.error(error.response.data.detailsException, {
+                    position: "bottom-center",
+                    autoClose: 3000,
+                    transition: Flip,
+                })
+            }
             console.error('Login failed:', error)
         }
     }
