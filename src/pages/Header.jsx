@@ -14,8 +14,9 @@ import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import { useNavigate } from 'react-router-dom'
+import { Flip, toast } from 'react-toastify'
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
+// const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
 function Header() {
 
@@ -49,6 +50,16 @@ function Header() {
         setTimeout(() => {
             navigate(path)
         }, 300)
+    }
+
+    const handleLogout = () => {
+        localStorage.removeItem('token')
+        toast.success("Você saiu da sua conta.", {
+            position: "bottom-center",
+            autoClose: 2000,
+            transition: Flip,
+        })
+        navigate('/login')
     }
 
     return (
@@ -175,11 +186,18 @@ function Header() {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
-                                </MenuItem>
-                            ))}
+                            <MenuItem onClick={handleCloseUserMenu}>
+                                <Typography textAlign="center">Perfil</Typography>
+                            </MenuItem>
+
+                            <MenuItem onClick={handleCloseUserMenu}>
+                                <Typography textAlign="center">Conta</Typography>
+                            </MenuItem>
+
+                            <MenuItem onClick={handleLogout}>
+                                <Typography textAlign="center">Sair</Typography>
+                            </MenuItem>
+
                         </Menu>
                     </Box>
                 </Toolbar>
