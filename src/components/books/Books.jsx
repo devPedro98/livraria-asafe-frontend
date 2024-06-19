@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import api from '../../services/api'
 import { MdEdit } from "react-icons/md"
 import { BsFillTrash3Fill } from "react-icons/bs"
+import { GrFormPreviousLink, GrFormNextLink } from "react-icons/gr";
 import styles from './Books.module.css'
 import { Link } from "react-router-dom"
 import { Flip, toast } from 'react-toastify'
@@ -10,27 +11,27 @@ const Books = () => {
     const [books, setBooks] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
+    const [page, setPage] = useState(0)
+    const [totalPages, setTotalPages] = useState(0)
+
+    const fetchBooks = async (pageNumber) => {
+        setLoading(true)
+        try {
+            const response = await api.get(`/api/books?page=${pageNumber}&size=10`)
+            setBooks(response.data.content)
+            setTotalPages(response.data.totalPages)
+        } catch (error) {
+            setError("Falha ao consultar os livros. Tente novamente mais tarde.")
+            console.log("Error fetching books:", error);
+        } finally {
+            setLoading(false)
+        }
+    }
 
     useEffect(() => {
-        const fetchBooks = async () => {
-            try {
-                const response = await api.get('/api/books')
-                console.log("Books data:", response.data)
-                setBooks(response.data.content)
-            } catch (error) {
-                setError("Falha ao consultar os livros. Tente novamente mais tarde.")
-                console.log("Error fetching books:", error);
-            } finally {
-                setLoading(false)
-            }
-        }
+        fetchBooks(page)
+    }, [page])
 
-        const timeoutId = setTimeout(() => {
-            fetchBooks()
-        }, 800)
-
-        return () => clearTimeout(timeoutId)
-    }, [])
 
 
     if (loading) {
@@ -72,6 +73,18 @@ const Books = () => {
 
     }
 
+    const handlePreviousPage = () => {
+        if (page > 0) {
+            setPage(page - 1)
+        }
+    }
+
+    const handleNextPage = () => {
+        if (page < totalPages - 1) {
+            setPage(page + 1)
+        }
+    }
+
     return (
         <div className={styles.books_page}>
             <p>Livros cadastrados</p>
@@ -102,6 +115,17 @@ const Books = () => {
                     ))}
                 </tbody>
             </table>
+            <div className={styles.pagination}>
+                <GrFormPreviousLink
+                    onClick={handlePreviousPage}
+                    className={`${styles.icon} ${styles.navIcon} ${page === 0 ? styles.disabled : ''}`}
+                />
+                <span>Página {page + 1} de {totalPages}</span>
+                <GrFormNextLink
+                    onClick={handleNextPage}
+                    className={`${styles.icon} ${styles.navIcon} ${page === totalPages - 1 ? styles.disabled : ''}`}
+                />
+            </div>
         </div>
     )
 }
