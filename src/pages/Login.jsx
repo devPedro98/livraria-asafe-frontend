@@ -27,7 +27,17 @@ const Login = () => {
             localStorage.setItem('token', response.data.token)
             setLoggedIn(true)
         } catch (error) {
-            setError('O login falhou, por favor tente novamente.')
+            if (error.response) {
+                if (error.response.status === 401) {
+                    setError('Senha incorreta')
+                } else if (error.response.status === 403) {
+                    setError('Usuário não encontrado.')
+                } else {
+                    setError('O login falhou, por favor tente novamente.')
+                }
+            } else {
+                setError('Erro de rede. Por favor, tente novamente.')
+            }
             console.error('Login failed:', error)
         } finally {
             setLoading(false)
